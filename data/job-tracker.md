@@ -24,6 +24,6 @@ Every company, role, date and contact below is invented for the Life Harness dem
 | Kestrel Maps | Product Analyst | Remote | Rolling | Maps and data |
 | Copperline Finance | Product Manager, New Grad | New York | 2026-11-30 | Alum referral available |
 
-## Weekly goal
+## Goals
 
-Four applications a week, three quality follow-ups, one coffee chat.
+Five applications on each job-search day. One round of follow-ups a week. Coffee chats as replies come in; no fixed number.
