@@ -13,3 +13,4 @@ One row per decision or result, newest at the bottom. A5's log is in `docs/log-a
 | 2026-11-07 | 偏离作业原文 | 作业建议 skill「问一两个问题」，本人要求直接给计划，改为只在规则无法应用时问一个 |
 | 2026-11-07 | 数据修订 | 投递记录的每周目标改为每天五家，与访谈口径一致 |
 | 2026-11-07 | 待办（A6 之后） | 搜岗位的 agent 往 data/job-tracker.md 加新行，本 harness 只读；A6 内用静态文件代替，演示时说明一句 |
+| 2026-11-08 | Step 2 验证 | 在仓库目录用 `claude -p` 开新会话提问，确认只加载了 AGENTS.md，能复述四条 Never 和 Map 里排计划前要读的四处；本地提交 e72a40f |
