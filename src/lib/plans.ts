@@ -11,6 +11,8 @@ export type Plan = {
   ifTime: string | null;
 };
 
+import { firstTable, tableCells } from "./mdtable";
+
 export type OpenItem = { item: string; from: string; status: string; noted: string };
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -26,21 +28,6 @@ function readFrontmatter(block: string): Record<string, string> {
   return Object.fromEntries(pairs);
 }
 
-/** Cells of one markdown table row; null for anything that is not a row or is the |---| separator. */
-function tableCells(line: string): string[] | null {
-  const trimmed = line.trim();
-  if (!trimmed.startsWith("|")) return null;
-  const cells = trimmed.slice(1, trimmed.endsWith("|") ? -1 : undefined).split("|").map((c) => c.trim());
-  if (cells.every((c) => /^:?-{3,}:?$/.test(c))) return null;
-  return cells;
-}
-
-/** Body rows of the first table in `lines`, header dropped. */
-function tableRows(lines: string[]): string[][] {
-  const rows = lines.map(tableCells).filter((cells): cells is string[] => cells !== null);
-  return rows.slice(1);
-}
-
 export function parsePlan(markdown: string): Plan | null {
   const match = markdown.match(FRONTMATTER);
   if (!match) return null;
@@ -51,7 +38,7 @@ export function parsePlan(markdown: string): Plan | null {
   const prose = body.filter((line) => line.trim() !== "" && tableCells(line) === null);
   const summary = prose.find((line) => !IF_TIME.test(line.trim()))?.trim() ?? "";
   const ifTime = prose.map((line) => line.trim().match(IF_TIME)).find((m) => m !== null)?.[1] ?? null;
-  const tasks = tableRows(body)
+  const tasks = (firstTable(body)?.rows ?? [])
     .filter((cells) => cells.length >= 3)
     .map(([task, from, why]) => ({ task, from, why }));
 
@@ -75,7 +62,7 @@ export function pickPlan(plans: Plan[], today: string): Plan | null {
 }
 
 export function parseOpenItems(markdown: string): OpenItem[] {
-  return tableRows(markdown.split(/\r?\n/))
+  return (firstTable(markdown.split(/\r?\n/))?.rows ?? [])
     .filter((cells) => cells.length >= 4)
     .map(([item, from, status, noted]) => ({ item, from, status, noted }));
 }

@@ -32,6 +32,8 @@ One sentence, then a table, then at most one "if there is time" line. Ten second
 | From | `calendar`, `tracker` or `notes` |
 | Why today | The deadline or rule that puts it on today's list |
 
+A task may carry one markdown link, `[text](https://…)`, when the source row or the user gives a URL; the page shows it as a button. Never invent a URL.
+
 Propose directly. Do not open with questions. Ask one question only when a rule above cannot be applied without an answer (for example, two dated items collide). After the user agrees, repeat the plan once, wait for a yes, then save it to `plans/YYYY-MM-DD.md` and update `notes/`.
 
 ## Notes

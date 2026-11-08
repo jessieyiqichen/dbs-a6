@@ -11,6 +11,7 @@ SUMMARY:ECON 31720 Causal Inference
 DTSTART;TZID=America/Chicago:20261109T103000
 DTEND;TZID=America/Chicago:20261109T115000
 LOCATION:Saieh Hall 203
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-002@example.local
@@ -19,6 +20,7 @@ SUMMARY:MPCS 51238 Design, Build, Ship
 DTSTART;TZID=America/Chicago:20261110T173000
 DTEND;TZID=America/Chicago:20261110T203000
 LOCATION:Ryerson 251
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-003@example.local
@@ -35,6 +37,7 @@ SUMMARY:ECON 31720 Causal Inference
 DTSTART;TZID=America/Chicago:20261111T103000
 DTEND;TZID=America/Chicago:20261111T115000
 LOCATION:Saieh Hall 203
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-005@example.local
@@ -43,6 +46,7 @@ SUMMARY:MACS 40700 Data Visualization
 DTSTART;TZID=America/Chicago:20261112T153000
 DTEND;TZID=America/Chicago:20261112T182000
 LOCATION:Cobb Hall 107
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-006@example.local
@@ -67,6 +71,7 @@ SUMMARY:ECON 31720 Causal Inference
 DTSTART;TZID=America/Chicago:20261116T103000
 DTEND;TZID=America/Chicago:20261116T115000
 LOCATION:Saieh Hall 203
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-009@example.local
@@ -75,6 +80,7 @@ SUMMARY:MPCS 51238 Design, Build, Ship
 DTSTART;TZID=America/Chicago:20261117T173000
 DTEND;TZID=America/Chicago:20261117T203000
 LOCATION:Ryerson 251
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-010@example.local
@@ -91,6 +97,7 @@ SUMMARY:ECON 31720 Causal Inference
 DTSTART;TZID=America/Chicago:20261118T103000
 DTEND;TZID=America/Chicago:20261118T115000
 LOCATION:Saieh Hall 203
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-012@example.local
@@ -99,6 +106,7 @@ SUMMARY:MACS 40700 Data Visualization
 DTSTART;TZID=America/Chicago:20261119T153000
 DTEND;TZID=America/Chicago:20261119T182000
 LOCATION:Cobb Hall 107
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-013@example.local
@@ -123,6 +131,7 @@ SUMMARY:Office hours: Design, Build, Ship
 DTSTART;TZID=America/Chicago:20261109T160000
 DTEND;TZID=America/Chicago:20261109T170000
 LOCATION:Ryerson 255
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-016@example.local
@@ -186,6 +195,7 @@ DTSTAMP:20261107T120000Z
 SUMMARY:DUE: Causal Inference problem set 3
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-024@example.local
@@ -193,6 +203,7 @@ DTSTAMP:20261107T120000Z
 SUMMARY:DUE: Data Visualization project milestone 2
 DTSTART;VALUE=DATE:20261119
 DTEND;VALUE=DATE:20261120
+URL:https://canvas.uchicago.edu
 END:VEVENT
 BEGIN:VEVENT
 UID:lh-025@example.local
@@ -200,5 +211,6 @@ DTSTAMP:20261107T120000Z
 SUMMARY:DUE: Project v1 (Design, Build, Ship)
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261202
+URL:https://canvas.uchicago.edu
 END:VEVENT
 END:VCALENDAR

@@ -21,6 +21,8 @@ One sentence summary of the day.
 If there is time: outline Data Viz milestone 2.
 ```
 
+A Task cell may hold one markdown link when the source has a URL; the page renders it as an "Open link" button and shows the matching calendar or tracker row when the task is pressed.
+
 The `date` line is the day the plan is for; `saved` is when it was written. The page sorts by `date`, then by `saved`.
 
 All content is fictional.

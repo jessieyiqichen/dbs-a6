@@ -1,17 +1,31 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import type { DayPayload, DayPlan } from "@/components/day/types";
 import { toISODate } from "@/lib/dates";
-import { parseOpenItems, parsePlan, pickPlan, type Plan } from "@/lib/plans";
+import { parseOpenItems, parsePlan, pickPlan, type OpenItem, type Plan } from "@/lib/plans";
+import { findDetail, parseCalendar, parseTaskLink, parseTracker, type Sources } from "@/lib/sources";
 
-/** What the /day page polls. Reads the repo's plans/ and notes/open-items.md on every call, so a plan the skill just
- *  saved shows up on the next poll. Local only: this route is never deployed and has no auth. */
+/** What the /day page polls. Reads plans/, notes/open-items.md and the two data files on every call, so a plan the
+ *  skill just saved shows on the next poll. Local only: never deployed, no auth, and it only ever reads. */
 export const dynamic = "force-dynamic";
 
 const ROOT = process.cwd();
 const PLANS_DIR = path.join(ROOT, "plans");
 const OPEN_ITEMS = path.join(ROOT, "notes", "open-items.md");
+const CALENDAR = path.join(ROOT, "data", "calendar.ics");
+const TRACKER = path.join(ROOT, "data", "job-tracker.md");
 const PLAN_FILE = /^\d{4}-\d{2}-\d{2}\.md$/;
+
+/** A file's text, or "" with a logged reason; the page degrades to showing less rather than failing. */
+async function readOrEmpty(file: string): Promise<string> {
+  try {
+    return await readFile(file, "utf8");
+  } catch (error) {
+    console.error("file could not be read", { file, error });
+    return "";
+  }
+}
 
 async function readPlans(): Promise<Plan[]> {
   let names: string[];
@@ -21,31 +35,30 @@ async function readPlans(): Promise<Plan[]> {
     console.error("plans/ could not be listed", { dir: PLANS_DIR, error });
     return [];
   }
-  const files = names.filter((n) => PLAN_FILE.test(n));
-  const parsed = await Promise.all(
-    files.map(async (name) => {
-      try {
-        return parsePlan(await readFile(path.join(PLANS_DIR, name), "utf8"));
-      } catch (error) {
-        console.error("plan file could not be read", { name, error });
-        return null;
-      }
-    }),
-  );
-  return parsed.filter((p): p is Plan => p !== null);
+  const texts = await Promise.all(names.filter((n) => PLAN_FILE.test(n)).map((n) => readOrEmpty(path.join(PLANS_DIR, n))));
+  return texts.map(parsePlan).filter((p): p is Plan => p !== null);
 }
 
-async function readOpenItems() {
-  try {
-    return parseOpenItems(await readFile(OPEN_ITEMS, "utf8"));
-  } catch (error) {
-    console.error("notes/open-items.md could not be read", { path: OPEN_ITEMS, error });
-    return [];
-  }
+function enrich(plan: Plan, sources: Sources): DayPlan {
+  const tasks = plan.tasks.map((t) => ({
+    ...t,
+    ...parseTaskLink(t.task),
+    detail: findDetail(t, plan.date, sources),
+  }));
+  return { ...plan, tasks };
 }
 
 export async function GET() {
   const today = toISODate(new Date());
-  const [plans, openItems] = await Promise.all([readPlans(), readOpenItems()]);
-  return NextResponse.json({ today, plan: pickPlan(plans, today), openItems, planCount: plans.length });
+  const [plans, openText, icsText, trackerText] = await Promise.all([
+    readPlans(),
+    readOrEmpty(OPEN_ITEMS),
+    readOrEmpty(CALENDAR),
+    readOrEmpty(TRACKER),
+  ]);
+  const openItems: OpenItem[] = parseOpenItems(openText);
+  const sources: Sources = { events: parseCalendar(icsText), tracker: parseTracker(trackerText), openItems };
+  const picked = pickPlan(plans, today);
+  const payload: DayPayload = { today, plan: picked ? enrich(picked, sources) : null, openItems, planCount: plans.length };
+  return NextResponse.json(payload);
 }

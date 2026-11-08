@@ -22,3 +22,6 @@ One row per decision or result, newest at the bottom. A5's log is in `docs/log-a
 | 2026-11-08 | 绕开登录 | 本仓库无 Clerk 密钥且页面只在本地用：proxy.ts 对 /day 与 /api/day 直接放行；根布局在没有 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY 时不挂 ClerkProvider，A5 页面在有密钥的环境不受影响 |
 | 2026-11-08 | 意外 | next dev 启动时自动往 AGENTS.md 末尾追加一段 Next.js 自己的说明。AGENTS.md 是 harness 的常驻上下文，不能被工具改写，已在 next.config.ts 设 agentRules: false 并还原文件。演示可提：连框架都会往你的上下文里塞东西 |
 | 2026-11-08 | 示例数据 | 为验证页面写了 plans/2026-11-09.md（内容取自触发测试中 agent 提的周一计划）和 open-items 一行 Northwind；是我写的夹具，不是 skill 的输出。页面在不刷新的情况下 3 秒内显示了新计划 |
+| 2026-11-08 | 卡片可点 | 本人希望点卡片能看细节并跳转。实现：/api/day 顺带解析 data/ 两份文件（仍只读），按词面匹配把每张卡对应的日历事件或投递行附上；点卡片展开显示；Task 栏可写一个 markdown 链接，渲染成「Open link」按钮，只认 http(s)。不做页面打勾完成：那会让页面成为第二个写记忆的人。src/lib/sources.ts 与 mdtable.ts，先写 15 条测试，全套 436 条通过 |
+| 2026-11-08 | docs/data.md 修正 | 投递记录的实际列名与 data.md 原写法不符（Applied、Company、Role、Location、Status、Next step and deadline、Notes），已按文件实际列名改正 |
+| 2026-11-08 | 链接进数据 | 本人要岗位来源链接和 Canvas 链接。改为从数据来而不是让 skill 写：日历课程类事件加 `URL`（指向真实的 canvas.uchicago.edu，课程 ID 未知故只到域名，本人可换成真实课程页）；投递记录加 `Link` 列（公司虚构，用 example.com 占位页）。页面展开时按来源显示「Open in Canvas」「Open posting」，计划里自带的链接显示「Open link」，同地址不重复。所有链接只认 http(s) |
