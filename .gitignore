@@ -47,3 +47,4 @@ next-env.d.ts
 /playwright-report/
 
 !.claude/skills/
+!.claude/hooks/
