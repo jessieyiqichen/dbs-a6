@@ -18,3 +18,7 @@ One row per decision or result, newest at the bottom. A5's log is in `docs/log-a
 | 2026-11-08 | 触发测试 | 新会话三句：「安排一下明天」「周一有什么要交的」均自动选中 morning-check-in，读文件顺序与 SKILL.md 一致，格式正确，未写 plans/ 与 notes/；「AGENTS.md 有多少行」未误触，只跑了 wc -l。每次排计划约 10 轮、0.39 美元 |
 | 2026-11-08 | 记忆管理 | 本人问 notes 变多会不会致幻。改为两层：notes/open-items.md 每次必读、解决即删；日流水只读最近 7 天。SKILL.md 第 1、2、4 步与 notes/README.md 同步修改 |
 | 2026-11-08 | .gitignore | A5 的 .gitignore 忽略整个 .claude/，加 `!.claude/skills/` 放行，否则 skill 进不了仓库 |
+| 2026-11-08 | Step 3 页面 | 本地页 /day：客户端每 3 秒轮询 /api/day，接口读 plans/ 与 notes/open-items.md；解析与挑选逻辑在 src/lib/plans.ts，先写 12 条测试再实现。挑选规则：今天的计划优先，否则最近的未来日期，否则最近的过去一天；同日取 saved 较晚的 |
+| 2026-11-08 | 绕开登录 | 本仓库无 Clerk 密钥且页面只在本地用：proxy.ts 对 /day 与 /api/day 直接放行；根布局在没有 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY 时不挂 ClerkProvider，A5 页面在有密钥的环境不受影响 |
+| 2026-11-08 | 意外 | next dev 启动时自动往 AGENTS.md 末尾追加一段 Next.js 自己的说明。AGENTS.md 是 harness 的常驻上下文，不能被工具改写，已在 next.config.ts 设 agentRules: false 并还原文件。演示可提：连框架都会往你的上下文里塞东西 |
+| 2026-11-08 | 示例数据 | 为验证页面写了 plans/2026-11-09.md（内容取自触发测试中 agent 提的周一计划）和 open-items 一行 Northwind；是我写的夹具，不是 skill 的输出。页面在不刷新的情况下 3 秒内显示了新计划 |

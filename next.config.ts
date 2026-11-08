@@ -13,6 +13,8 @@ const SECURITY_HEADERS = [
 ];
 
 const nextConfig: NextConfig = {
+  // A6: AGENTS.md is the harness's own always-loaded file; next dev must not append its block to it (2026-11-08)
+  agentRules: false,
   // This deployment is Builder's Board (Assignment 5): the front door is the board, not Nudge's Today page
   async redirects() {
     return [{ source: "/", destination: "/board", permanent: false }];
