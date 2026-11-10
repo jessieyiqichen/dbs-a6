@@ -4,6 +4,10 @@ A morning check-in harness built with Claude Code. It reads two read-only data s
 
 Everything in `data/` and `notes/` is made up. Nothing here is the user's real calendar, tasks or job search.
 
+## Planning a day
+
+Always go through the `morning-check-in` skill in `.claude/skills/`. "Plan my day", "what should I do today", "what is due", any date: that is the skill. Never plan by hand; if the skill is not loaded, say so and stop.
+
 ## Map
 
 | Path | What it is | Read it when |

@@ -35,7 +35,7 @@ This page shows my day. Right now the plan is empty, because I haven't checked i
 
 So, what does Claude see, and when?
 
-Every session, it sees two things. AGENTS.md, which is short, about forty lines. It has the rules, when to stop and ask me, and a map of which file to read for what.
+Every session, it sees two things. AGENTS.md, which is short, about forty lines. It has the rules, which skill to use for planning, when to stop and ask me, and a map of which file to read for what.
 
 And it sees one line about the skill. Just the description. The full skill only loads when it's used.
 
@@ -51,7 +51,7 @@ Let's check in. I'll just type "plan my day". I'm not naming the skill.
 
 [输入 `plan my day`，回车]
 
-It picked the skill on its own, from that one-line description.
+It picked the skill on its own. AGENTS.md told it to, and the description matched.
 
 Now it's reading. The rules first. Then the formats. Then the calendar, the tracker, and my notes.
 
