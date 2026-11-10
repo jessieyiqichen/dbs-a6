@@ -17,7 +17,7 @@ const clerk = clerkMiddleware(
 );
 
 /** The A6 harness page and its API run locally with no account, so Clerk never sees them (and needs no keys here). */
-const HARNESS_PATHS = ["/day", "/api/day"];
+const HARNESS_PATHS = ["/day", "/api/day", "/api/weather"];
 
 function isHarnessPath(pathname: string): boolean {
   return HARNESS_PATHS.some(

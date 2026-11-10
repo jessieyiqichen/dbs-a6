@@ -211,3 +211,10 @@ body {
   --color-bh-mustard: #e2b04a;
   --color-bh-green: #1f3d39;
 }
+
+/* /day: a saved plan just arrived. One short settle, nothing that loops. */
+@keyframes plan-in {
+  from { opacity: 0.2; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.plan-in { animation: plan-in 700ms ease-out; }

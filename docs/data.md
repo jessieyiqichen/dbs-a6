@@ -30,3 +30,7 @@ Markdown with three sections.
 Link is the posting or application page. The companies are made up, so these point at placeholder pages under example.com; a real tracker would hold the real posting URLs. The /day page shows the link of the matched row as a button.
 
 Items with a date in the Applications table outrank coursework on that date (see `docs/planning.md`).
+
+## Weather (page only)
+
+The `/day` page shows one line of weather from Open-Meteo (free, no key) for the campus in the made-up calendar, via `/api/weather`. It is the page's only outside call, cached ten minutes. The harness does not read it: the skill plans from the calendar and the tracker alone. If the call fails the page says "Weather unavailable" and nothing else changes.

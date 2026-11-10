@@ -48,8 +48,23 @@ function enrich(plan: Plan, sources: Sources): DayPlan {
   return { ...plan, tasks };
 }
 
-export async function GET() {
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** `?date=YYYY-MM-DD` shows that day; anything else (or nothing) shows the plan nearest today. */
+function requestedDate(request: Request): string | null {
+  const value = new URL(request.url).searchParams.get("date");
+  return value && ISO_DATE.test(value) ? value : null;
+}
+
+/** The plan saved for one day; when the skill saved that day twice, the later save. */
+function latestFor(plans: Plan[], date: string): Plan | null {
+  const same = plans.filter((p) => p.date === date).sort((a, b) => (a.saved < b.saved ? 1 : -1));
+  return same[0] ?? null;
+}
+
+export async function GET(request: Request) {
   const today = toISODate(new Date());
+  const wanted = requestedDate(request);
   const [plans, openText, icsText, trackerText] = await Promise.all([
     readPlans(),
     readOrEmpty(OPEN_ITEMS),
@@ -58,7 +73,16 @@ export async function GET() {
   ]);
   const openItems: OpenItem[] = parseOpenItems(openText);
   const sources: Sources = { events: parseCalendar(icsText), tracker: parseTracker(trackerText), openItems };
-  const picked = pickPlan(plans, today);
-  const payload: DayPayload = { today, plan: picked ? enrich(picked, sources) : null, openItems, planCount: plans.length };
+  const picked = wanted ? latestFor(plans, wanted) : pickPlan(plans, today);
+  const date = wanted ?? picked?.date ?? today;
+  const payload: DayPayload = {
+    today,
+    date,
+    plan: picked ? enrich(picked, sources) : null,
+    events: sources.events.filter((e) => e.date === date),
+    openItems,
+    planDates: plans.map((p) => p.date).sort(),
+    planCount: plans.length,
+  };
   return NextResponse.json(payload);
 }
