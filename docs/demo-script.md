@@ -1,6 +1,6 @@
 # Demo · 逐字稿与录制步骤（2026-11-10）
 
-英文是对着麦克风说的话，方括号里的中文是同时要做的动作。总长约 5 分钟，偏紧：最后一段「下一步」可以不录；中段讲页面时不要停顿太久。
+英文是对着麦克风说的话，方括号里的中文是同时要做的动作。总长约 4 分 40 秒。不介绍仓库目录，作业没有要求；「harness 总览」用开场一句话带过。
 
 ## 一、录之前（约 5 分钟）
 
@@ -17,19 +17,15 @@
 
 ## 二、逐字稿
 
-### 0:00 总览（约 40 秒）
+### 0:00 开场（约 20 秒）
 
-Hi, this is my Life Harness for Assignment 6. It is a morning check-in built on Claude Code.
+Hi, this is my Life Harness for Assignment 6: a morning check-in on Claude Code.
 
-There are two read-only data sources, both made up: a calendar, as an ics file, and a job tracker, as a markdown table. The harness reads them, remembers what happened on earlier days, proposes three tasks for the day, and this local page shows the day.
+Two read-only sources, both made up: a calendar and a job tracker. The harness is an AGENTS.md, a check-in skill, a hook on the data, and notes as memory. This local page shows the day; the plan part is empty because I have not checked in yet.
 
-The page already shows today's calendar and the weather. The plan part is empty, because I have not checked in yet.
+[左边页面上划一下日程和天气；右边终端已经在 `claude` 里]
 
-Here is the repo. AGENTS.md at the root. Then data, docs, notes and plans. The skill and the hook live under dot-claude, and the page under src/app/day.
-
-[先用鼠标在左边页面划一下日程和天气，再到终端敲 `ls -a` 和 `ls .claude .claude/skills .claude/hooks`]
-
-### 0:40 什么时候加载什么（约 55 秒）
+### 0:20 什么时候加载什么（约 55 秒）
 
 What loads when.
 
@@ -45,7 +41,7 @@ Here is slash-context. You can see AGENTS.md is in, and how small it is.
 
 [在 Claude 里输入 `/context`，停两秒；然后 `cat AGENTS.md`，用鼠标指一下 Map 那张表]
 
-### 1:35 现场 check-in（约 60 秒）
+### 1:15 现场 check-in（约 60 秒）
 
 Now the check-in. I type "plan my day". I do not name the skill.
 
@@ -57,7 +53,7 @@ Then it proposes. One sentence, three tasks, where each one came from, and at mo
 
 [等它输出；用鼠标指 Skill 那一行和 Read 的顺序，再指表格里的 From 列]
 
-### 2:35 同意，页面更新（约 65 秒）
+### 2:15 同意，页面更新（约 65 秒）
 
 I say yes.
 
@@ -73,7 +69,7 @@ Above the plan is the day's calendar: time, name, room, with a line for right no
 
 [看左边浏览器变成今天的计划；点开一张卡，指 Open in Canvas 或 Open posting 按钮；指时间轴上的数字和红线；点周一再点回周二]
 
-### 3:40 Claude 决定什么，Claude Code 强制什么（约 60 秒）
+### 3:20 Claude 决定什么，Claude Code 强制什么（约 60 秒）
 
 Last: what Claude decides, versus what Claude Code enforces.
 
@@ -95,7 +91,7 @@ Now it does call Edit. And the hook exits with code 2: blocked, and the reason g
 
 That is the difference. The first one was a choice. The second one was enforced, outside Claude's reach.
 
-### 4:40 下一步（约 20 秒，超时就删）
+### 4:20 下一步（约 20 秒）
 
 What I would fix next: the tracker links are placeholders, and the hook reads shell commands as text, so it is a net, not a proof. Every decision is in log.md with a date. Thanks.
 
