@@ -53,9 +53,9 @@ Let's check in. I'll just type "plan my day". I'm not naming the skill.
 
 It picked the skill on its own. AGENTS.md told it to, and the description matched.
 
-Now it's reading. The rules first. Then the formats. Then the calendar, the tracker, and my notes.
+Now it's reading everything in one go: the rules, the formats, the calendar, the tracker, and my notes.
 
-[指 Skill 那一行和 Read 的顺序]
+[指 Skill 那一行和下面的 cat 命令]
 
 And here's the plan. One sentence. Three tasks. And next to each task, where it came from.
 
@@ -69,15 +69,19 @@ I say yes.
 
 [输入 `yes`，回车]
 
-It says the plan back once, and saves it. That's a plan file, a note for today, and the open items list.
+It says the plan back once, in full, and asks again. That's a rule: it never saves without a second yes.
+
+[输入 `yes`，回车，等它写完]
+
+Saved. A plan file, and a note for today.
 
 Now watch the page. No reload. It picks up the new plan in about three seconds.
 
 [看左边变成今天的计划]
 
-I can press a task. This one came from the calendar, so I get the event, and a link into Canvas. This one came from the tracker, so I get the job posting. The links come from the data. Nothing is made up.
+I can press a task. Here's the event behind it, and a link into Canvas. The link comes from the calendar file. Nothing is made up.
 
-[点开一张卡，指按钮；再点开另一张]
+[点开一张卡，指 Open in Canvas 按钮]
 
 Up here is today's calendar. The red line is right now. The numbers are the tasks. And this is the weather. That's the only thing on this page that comes from outside, and Claude doesn't use it for planning.
 
