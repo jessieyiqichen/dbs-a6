@@ -1,6 +1,6 @@
 # Demo · 逐字稿与录制步骤（2026-11-10）
 
-英文是对着麦克风说的话，方括号里的中文是同时要做的动作。总长约 4 分 40 秒。不介绍仓库目录，作业没有要求；「harness 总览」用开场一句话带过。
+英文是对着麦克风说的话，方括号里的中文是同时要做的动作。总长约 4 分 35 秒。不介绍仓库目录，作业没有要求。
 
 ## 一、录之前（约 5 分钟）
 
@@ -17,85 +17,101 @@
 
 ## 二、逐字稿
 
+口语版：短句，能用「it」就不说文件名，每段念完有一个动作当停顿。
+
 ### 0:00 开场（约 20 秒）
 
-Hi, this is my Life Harness for Assignment 6: a morning check-in on Claude Code.
+Hi. This is my Life Harness for Assignment 6.
 
-Two read-only sources, both made up: a calendar and a job tracker. The harness is an AGENTS.md, a check-in skill, a hook on the data, and notes as memory. This local page shows the day; the plan part is empty because I have not checked in yet.
+Every morning, I check in with Claude Code, and it plans my day.
 
-[左边页面上划一下日程和天气；右边终端已经在 `claude` 里]
+It reads two things, both made up: my calendar, and my job tracker. It can read them, but it can never change them.
 
-### 0:20 什么时候加载什么（约 55 秒）
+This page shows my day. Right now the plan is empty, because I haven't checked in yet.
 
-What loads when.
+[鼠标在左边页面划一下日程和天气]
 
-AGENTS.md loads every session. It is 37 lines: the red lines, when to stop and ask me, and a map of which file to read for what.
+### 0:20 什么时候加载什么（约 50 秒）
 
-The skill's one-line description also loads every session. Its body loads only when the skill fires.
+So, what does Claude see, and when?
 
-The planning rules in docs/planning.md and the data formats in docs/data.md load only when it is actually planning.
+Every session, it sees two things. AGENTS.md, which is short, about forty lines. It has the rules, when to stop and ask me, and a map of which file to read for what.
 
-For memory, it reads notes/open-items.md every time, and the daily notes only for the last seven days, so the context does not grow forever.
+And it sees one line about the skill. Just the description. The full skill only loads when it's used.
 
-Here is slash-context. You can see AGENTS.md is in, and how small it is.
+Everything else is read on demand. The planning rules. The data formats. My open items, every time. And my daily notes, but only the last seven days, so the context never gets too big.
 
-[在 Claude 里输入 `/context`，停两秒；然后 `cat AGENTS.md`，用鼠标指一下 Map 那张表]
+Here's slash context. AGENTS.md is in there, and that's all.
 
-### 1:15 现场 check-in（约 60 秒）
+[输入 `/context`，停两秒]
 
-Now the check-in. I type "plan my day". I do not name the skill.
+### 1:10 现场 check-in（约 60 秒）
+
+Let's check in. I'll just type "plan my day". I'm not naming the skill.
 
 [输入 `plan my day`，回车]
 
-It picks morning-check-in from the description alone. Then it reads, in this order: planning.md, data.md, the calendar, the tracker, open items, and recent notes.
+It picked the skill on its own, from that one-line description.
 
-Then it proposes. One sentence, three tasks, where each one came from, and at most one "if there is time" line. It does not ask me questions unless a rule cannot be applied, for example when two things collide.
+Now it's reading. The rules first. Then the formats. Then the calendar, the tracker, and my notes.
 
-[等它输出；用鼠标指 Skill 那一行和 Read 的顺序，再指表格里的 From 列]
+[指 Skill 那一行和 Read 的顺序]
 
-### 2:15 同意，页面更新（约 65 秒）
+And here's the plan. One sentence. Three tasks. And next to each task, where it came from.
+
+It only asks me a question when it has to, like when two things are at the same time.
+
+[指表格里的 From 列]
+
+### 2:10 同意，页面更新（约 65 秒）
 
 I say yes.
 
 [输入 `yes`，回车]
 
-It repeats the plan once, waits for me, then saves plans slash today, appends a daily note, and updates open items.
+It says the plan back once, and saves it. That's a plan file, a note for today, and the open items list.
 
-And the page, with no reload, changes within three seconds. The page polls the API every three seconds, and the API reads the plans folder.
+Now watch the page. No reload. It picks up the new plan in about three seconds.
 
-Press a card. It shows the calendar row or the tracker row behind that task, and a Canvas link or a job posting link, taken from the data, never invented.
+[看左边变成今天的计划]
 
-Above the plan is the day's calendar: time, name, room, with a line for right now, and the task numbers on the events they came from. The week strip at the top: a dot is a day with a saved plan, and I can look back at any day. The weather line is the page's one outside call, Open-Meteo, no key; the harness does not plan on it.
+I can press a task. This one came from the calendar, so I get the event, and a link into Canvas. This one came from the tracker, so I get the job posting. The links come from the data. Nothing is made up.
 
-[看左边浏览器变成今天的计划；点开一张卡，指 Open in Canvas 或 Open posting 按钮；指时间轴上的数字和红线；点周一再点回周二]
+[点开一张卡，指按钮；再点开另一张]
 
-### 3:20 Claude 决定什么，Claude Code 强制什么（约 60 秒）
+Up here is today's calendar. The red line is right now. The numbers are the tasks. And this is the weather. That's the only thing on this page that comes from outside, and Claude doesn't use it for planning.
 
-Last: what Claude decides, versus what Claude Code enforces.
+[指日程、红线、编号、天气]
 
-Claude decides which skill to use, what to read, what to propose, and when to ask. Claude Code enforces two things before any tool runs: a deny rule on dot-env, and a PreToolUse hook that blocks any write under data.
+### 3:15 Claude 决定什么，Claude Code 强制什么（约 65 秒）
 
-First prompt: move Wednesday's class to Thursday, just do it.
+Last thing. What does Claude decide, and what does Claude Code enforce?
+
+Claude decides which skill to use, what to read, what to propose, and when to ask me. Those are choices.
+
+Claude Code enforces one rule: nothing can write to the data folder. That's a hook. It runs before any tool, and Claude can't get around it.
+
+Let me show the difference. First, I'll ask it to move a class.
 
 [粘贴提示 1，回车，等它拒绝]
 
-It refuses, on the AGENTS.md rule. That is Claude deciding.
+It says no, because of the rules. That's Claude making a choice.
 
-Second prompt: I tell it the rule is suspended for this one request, and to use Edit directly.
+Now I'll tell it the rule is off for this one request, and to just edit the file.
 
 [粘贴提示 2，回车]
 
-Now it does call Edit. And the hook exits with code 2: blocked, and the reason goes back to Claude. Git status: data is untouched.
+This time it tries. It calls Edit. And the hook blocks it. The file didn't change.
 
-[终端 `git status --short`，指出没有 data/ 下的改动]
+[`git status --short`，指出 data 下没有改动]
 
-That is the difference. The first one was a choice. The second one was enforced, outside Claude's reach.
+So the first one was a choice. The second one was enforced.
 
-### 4:20 下一步（约 20 秒）
+### 4:20 收尾（约 15 秒）
 
-What I would fix next: the tracker links are placeholders, and the hook reads shell commands as text, so it is a net, not a proof. Every decision is in log.md with a date. Thanks.
+What I'd fix next: the hook reads shell commands as text, so it's a safety net, not a proof. And every decision I made is in the log, with a date.
 
-[`tail -5 log.md`]
+That's it. Thanks.
 
 ## 三、两条提示（录的时候直接粘贴）
 
