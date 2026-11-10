@@ -48,3 +48,7 @@ next-env.d.ts
 
 !.claude/skills/
 !.claude/hooks/
+
+# Codex mirrors of the skill and hook, not part of the Claude Code harness
+.agents/
+.codex/
